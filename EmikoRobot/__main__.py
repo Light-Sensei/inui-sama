@@ -229,7 +229,7 @@ def start(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_text(
-            f"👋 Hi, I'm [Inui](https://telegra.ph/file/9e1667d72642a79c0d67a.mp4). Nice to meet You.",
+            f"👋 Hi, I'm Inui [💖](https://telegra.ph/file/9e1667d72642a79c0d67a.mp4). Nice to meet You.",
             parse_mode=ParseMode.HTML
        )
 
