@@ -17,7 +17,6 @@ from telegram.ext import CallbackContext, CommandHandler
 from telegram.ext.dispatcher import run_async
 from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown, mention_html
-from EmikoRobot.modules.language import gs
     
 from EmikoRobot import (
     DEV_USERS,
@@ -166,14 +165,12 @@ def get_id(update: Update, context: CallbackContext):
 
     elif chat.type == "private":
         msg.reply_text(
-            f"Your id is <code>{chat.id}</code>.",
-            parse_mode=ParseMode.HTML,
+            f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
         )
 
     else:
         msg.reply_text(
-            f"This group's id is <code>{chat.id}</code>.",
-            parse_mode=ParseMode.HTML,
+            f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
         )
 
 
@@ -304,7 +301,7 @@ def info(update: Update, context: CallbackContext):
         text += "\n\nThe Disaster level of this person is 'Darling'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Oniichan'."
+        text += "\n\nThis user is member of 'Oni-Chan'."
         disaster_level_present = True
     elif user.id in DRAGONS:
         text += "\n\nThe Disaster level of this person is 'Sensei'."
@@ -313,13 +310,13 @@ def info(update: Update, context: CallbackContext):
         text += "\n\nThe Disaster level of this person is 'Senpai'."
         disaster_level_present = True
     elif user.id in TIGERS:
-        text += "\n\nThe Disaster level of this person is 'Bestfriend'."
+        text += "\n\nThe Disaster level of this person is 'Best Friend'."
         disaster_level_present = True
     elif user.id in WOLVES:
         text += "\n\nThe Disaster level of this person is 'Friend'."
         disaster_level_present = True
     elif user.id == 1829047705:
-         text += "\n\nOwner Of A Bot. Queen Of @excrybaby. Bot Name Inspired From 'JoJo'."
+         text += "\n\nOwner Of A Bot. Queen Of @Itz_Light_Yagami. Bot Name Inspired From 'My Dress Up Darling'."
          disaster_level_present = True
 
     try:
@@ -356,7 +353,7 @@ def info(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                "Health", url="https://t.me/InuiUpdates/6"),
+                                "Health", url="https://t.me/https://t.me/InuiUpdates/6"),
                             InlineKeyboardButton(
                                 "Disaster", url="https://t.me/InuiUpdates/3")
                         ],
@@ -390,6 +387,7 @@ def info(update: Update, context: CallbackContext):
         )
 
     rep.delete()
+
 
 def about_me(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -446,50 +444,15 @@ def set_about_me(update: Update, context: CallbackContext):
             )
 
 @sudo_plus
-def stats(update, context):
-    uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-    botuptime = get_readable_time((time.time() - StartTime))
-    status = "*╒═══「 System statistics 」*\n\n"
-    status += "*➢ System Start time:* " + str(uptime) + "\n"
-    uname = platform.uname()
-    status += "*➢ System:* " + str(uname.system) + "\n"
-    status += "*➢ Node name:* " + escape_markdown(str(uname.node)) + "\n"
-    status += "*➢ Release:* " + escape_markdown(str(uname.release)) + "\n"
-    status += "*➢ Machine:* " + escape_markdown(str(uname.machine)) + "\n"
-    mem = virtual_memory()
-    cpu = cpu_percent()
-    disk = disk_usage("/")
-    status += "*➢ CPU:* " + str(cpu) + " %\n"
-    status += "*➢ RAM:* " + str(mem[2]) + " %\n"
-    status += "*➢ Storage:* " + str(disk[3]) + " %\n\n"
-    status += "*➢ Python Version:* " + python_version() + "\n"
-    status += "*➢ python-Telegram-Bot:* " + str(ptbver) + "\n"
-    status += "*➢ Uptime:* " + str(botuptime) + "\n"
-    try:
-        update.effective_message.reply_text(
-            status
-            + "\n*Inui statistics*:\n"
-            + "\n".join([mod.__stats__() for mod in STATS])
-            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/inuiupdates)\n\n"
-            + "╘══「 by [Light Yagami](https://t.me/Itz_Light_Yagami) 」\n",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-        )
-    except BaseException:
-        update.effective_message.reply_text(
-            (
-                (
-                    (
-                        "\n*Shikimori statistics*:\n"
-                        + "\n".join(mod.__stats__() for mod in STATS)
-                    )
-                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/inuiupdates)\n\n"
-                )
-                + "╘══「 by [Light Yagami (夜神月)](https://github.com/Light-Sensei) 」\n"
-            ),
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-        )
+def stats(update: Update, context: CallbackContext):
+    stats = "<b>╔═━「 Current Emiko Statistics 」</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
+    result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
+    result += "\n<b>╘═━「 Powered By kennedy-ex 」</b>"
+    update.effective_message.reply_text(
+        result,
+        parse_mode=ParseMode.HTML, 
+        disable_web_page_preview=True
+   )
         
         
 def about_bio(update: Update, context: CallbackContext):
@@ -575,8 +538,39 @@ def __user_info__(user_id):
     return result
 
 
-def helps(chat):
-    return gs(chat, "info_and_afk_help")
+__help__ = """
+*ID:*
+❂ /id*:* get the current group id. If used by replying to a message, gets that user's id.
+❂ /gifid*:* reply to a gif to me to tell you its file ID.
+ 
+*Self addded information:* 
+❂ /setme <text>*:* will set your info
+❂ /me*:* will get your or another user's info.
+Examples:
+❂ /setme I am a wolf.
+❂ /me @username(defaults to yours if no user specified)
+ 
+*Information others add on you:* 
+❂ /bio*:* will get your or another user's bio. This cannot be set by yourself.
+❂ /setbio <text>*:* while replying, will save another user's bio 
+Examples:
+❂ /bio @username(defaults to yours if not specified).
+❂ /setbio This user is a wolf (reply to the user)
+ 
+*Overall Information about you:*
+❂ /info*:* get information about a user. 
+ 
+*json Detailed info:*
+❂ /json*:* Get Detailed info about any message.
+ 
+*AFk:*
+When marked as AFK, any mentions will be replied to with a message stating that you're not available!
+❂ /afk <reason>*:* Mark yourself as AFK.
+  - brb <reason>: Same as the afk command, but not a command. 
+  
+*What is that health thingy?*
+ Come and see [HP System explained](https://t.me/KennedyProject/44)
+"""
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio, run_async=True)
 GET_BIO_HANDLER = DisableAbleCommandHandler("bio", about_bio, run_async=True)
