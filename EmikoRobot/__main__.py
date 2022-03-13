@@ -458,8 +458,8 @@ def emiko_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Light Yagami (夜神月)", url="https://github.com/Light-Sensei"),
-                    InlineKeyboardButton(text="Itachi", url="https://github.com/Yoriicci-Tsugikuni"),
+                    InlineKeyboardButton(text="Light Yagami (夜神月)", url="https://t.me/Itz_Light_Yagami"),
+                    InlineKeyboardButton(text="Sawada Tsunayoshi", url="https://t.me/Sawada_Kun"),
                  ],
                  [
                     InlineKeyboardButton(text="Go Back", callback_data="emiko_"),
