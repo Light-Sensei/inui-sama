@@ -463,8 +463,8 @@ def emiko_about_callback(update, context):
                  [
                     InlineKeyboardButton(text="Light Yagami (夜神月)", url="https://github.com/Light-Sensei"),
                     InlineKeyboardButton(text="Itachi", url="https://github.com/Yoriicci-Tsugikuni"),
-                 ]
-                ]
+                 ],
+                 [
                     InlineKeyboardButton(text="Go Back", callback_data="emiko_"),
                  
                  ]
